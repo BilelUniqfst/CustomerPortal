@@ -36,7 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('basepath') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Router Class
@@ -48,7 +48,9 @@ defined('basepath') OR exit('No direct script access allowed');
  * @category	Libraries
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/general/routing.html
+ 
  */
+ #[\AllowDynamicProperties]
 class CI_Router {
 
 	/**
@@ -57,6 +59,7 @@ class CI_Router {
 	 * @var	object
 	 */
 	public $config;
+	
 
 	/**
 	 * List of routes
@@ -122,6 +125,7 @@ class CI_Router {
 	 * @param	array	$routing
 	 * @return	void
 	 */
+	 
 	public function __construct($routing = NULL)
 	{
 		$this->config =& load_class('Config', 'core');

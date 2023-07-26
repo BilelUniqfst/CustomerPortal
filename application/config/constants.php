@@ -1,5 +1,5 @@
 <?php
-defined('basepath') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +12,7 @@ defined('basepath') OR exit('No direct script access allowed');
 |
 */
 defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
-define('basepath', 'whatever'); 
+
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

@@ -36,7 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('basepath') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Security Class
@@ -46,7 +46,9 @@ defined('basepath') OR exit('No direct script access allowed');
  * @category	Security
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/libraries/security.html
+ 
  */
+ #[\AllowDynamicProperties]
 class CI_Security {
 
 	/**

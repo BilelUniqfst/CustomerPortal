@@ -36,7 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('basepath') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Database Driver Class
@@ -51,6 +51,7 @@ defined('basepath') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/database/
  */
+ #[\AllowDynamicProperties]
 abstract class CI_DB_driver {
 
 	/**
@@ -761,8 +762,8 @@ abstract class CI_DB_driver {
 
 		if ( ! class_exists($driver, FALSE))
 		{
-			require_once(basepath.'database/DB_result.php');
-			require_once(basepath.'database/drivers/'.$this->dbdriver.'/'.$this->dbdriver.'_result.php');
+			require_once(BASEPATH.'database/DB_result.php');
+			require_once(BASEPATH.'database/drivers/'.$this->dbdriver.'/'.$this->dbdriver.'_result.php');
 		}
 
 		return $driver;
@@ -1695,7 +1696,7 @@ abstract class CI_DB_driver {
 	{
 		if ( ! class_exists('CI_DB_Cache', FALSE))
 		{
-			require_once(basepath.'database/DB_cache.php');
+			require_once(BASEPATH.'database/DB_cache.php');
 		}
 		elseif (is_object($this->CACHE))
 		{
@@ -1776,10 +1777,10 @@ abstract class CI_DB_driver {
 					$call['file'] = str_replace('\\', '/', $call['file']);
 				}
 
-				if (strpos($call['file'], basepath.'database') === FALSE && strpos($call['class'], 'Loader') === FALSE)
+				if (strpos($call['file'], BASEPATH.'database') === FALSE && strpos($call['class'], 'Loader') === FALSE)
 				{
 					// Found it - use a relative path for safety
-					$message[] = 'Filename: '.str_replace(array(APPPATH, basepath), '', $call['file']);
+					$message[] = 'Filename: '.str_replace(array(APPPATH, BASEPATH), '', $call['file']);
 					$message[] = 'Line Number: '.$call['line'];
 					break;
 				}

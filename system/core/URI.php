@@ -36,7 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('basepath') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * URI Class
@@ -64,6 +64,7 @@ class CI_URI {
 	 * @var	string
 	 */
 	public $uri_string = '';
+	public $config;
 
 	/**
 	 * List of URI segments
@@ -99,6 +100,8 @@ class CI_URI {
 	 */
 	public function __construct()
 	{
+
+
 		$this->config =& load_class('Config', 'core');
 
 		// If query strings are enabled, we don't need to parse any segments.
