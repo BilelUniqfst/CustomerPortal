@@ -1,52 +1,29 @@
- version: '2'
-   services:
-     memcached:
-     image: memcached:1.4
+version: '3'
 
-   data:
-    image: busybox
+services:
+  db:
+    image: mysql:5.6
     volumes:
-      - ./misc/data:/var/lib/mysql
-
-  mysql:
-    image: mysql:5.7
+      - ./scripts/user.sql:/docker-entrypoint-initdb.d/user.sql
+      - ./db_data:/var/lib/mysql
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 
       MYSQL_DATABASE: basepath
       MYSQL_USER: root
       MYSQL_PASSWORD: 
-      socket: /var/run/mysqld/mysqld.sock
-    ports:
-      - "4306:3306"
-    volumes_from:
-      - data
-    volumes:
-      - ../application/initial.sql:/docker-entrypoint-initdb.d/initial.sql
-    container_name: mysql
-nginx:
-    build: ./nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    links:
-      - web
-    container_name: nginx
-    environment:
-     - CI_ENV=localhost
 
-  web:
-    build: ./php-fpm71
-#    build: ./php-fpm56    <- if you want to use PHP5.6
-    volumes:
-      - /Users/alberorana/codeigniter/suke10:/var/www/html/suke10
-      - ./php-fpm71/php.ini:/usr/local/etc/php/conf.d/php.ini
+  ciapp:
+    build: ./ciapp
+    volumes: 
+      - ./ciapp:/var/www/html/
+    depends_on:
+       - db
+    restart: always
     links:
-      - mysql
-    environment:
-      DATABASE_HOST: '0.0.0.0'
-      DATABASE_NAME: 'basepath'
-      DATABASE_USER: 'root'
-      DATABASE_PASSWORD: ''
-    container_name: web
+      - db:mysql
+    ports:
+      - "8000:80"
+
+volumes:
+    db_data:
