@@ -1,0 +1,49 @@
+version: "1.0"
+services:
+  webserver:
+    image: thecodingmachine/php:7.4-v3-apache-node12
+    container_name: test-webserver
+    working_dir: /var/www/html
+    environment:
+      PHP_EXTENSIONS: apcu pdo_mysql opcache redis zip gd yaml exif xdebug
+      PHP_EXTENSION_GD: 1
+      PHP_EXTENSION_MYSQLI: 1
+      APACHE_DOCUMENT_ROOT: app
+      APACHE_RUN_GROUP: www-data # use www-data user in container.. which is also used on most webservers for deployer
+      APACHE_RUN_USER: www-data
+      PHP_EXTENSION_XDEBUG: 1
+    depends_on:
+      - mysql
+    volumes:
+      - ./:/var/www/html
+      - ~/.ssh:/root/.ssh
+    stdin_open: true
+    tty: true
+    ports:
+      - "9090:80"
+  mysql:
+    image: mysql:5.7
+    container_name: test-mysql
+    restart: unless-stopped
+    ports:
+      - "3307:3307"
+    expose:
+      - 3307
+    environment:
+      MYSQL_ROOT_PASSWORD: MYSQL_ALLOW_EMPTY_PASSWORD
+      MYSQL_DATABASE: BASEPATH
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+      MYSQL_TCP_PORT: 3307
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    container_name: test-phpadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: 
+      PMA_PORT: 3307
+      UPLOAD_LIMIT: 300M
+    ports:
+      - 9091:80
