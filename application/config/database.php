@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '127.0.0.1',
+	'hostname' => 'containers-us-west-171.railway.app',
 	'username' => 'root',
-	'password' => '',
-	'database' => 'application',
+	'password' => 'WfwnU9jjZmeNq8cEWMof',
+	'database' => 'railway',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
